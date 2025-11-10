@@ -16,15 +16,16 @@ public class JpaMain {
 
         try {
 
-            // 비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
-
             // 영속
-            System.out.println("=== BEFORE ===");
-            em.persist(member);
-            System.out.println("=== AFTER ===");
+            Member member1 = new Member(1000L, "오준택");
+            Member member2 = new Member(1001L, "오준택2");
+
+            // 버퍼링 효과 사용 -> 한 번에 DB에 커밋
+            em.persist(member1);
+            em.persist(member2);
+
+
+            System.out.println("==================");
 
             tx.commit();
         } catch (Exception e) {
