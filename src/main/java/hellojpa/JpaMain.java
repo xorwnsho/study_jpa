@@ -15,17 +15,31 @@ public class JpaMain {
         tx.begin();
 
         try {
+            // 저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            // 영속
-            Member member1 = new Member(1000L, "오준택");
-            Member member2 = new Member(1001L, "오준택2");
+            Member member = new Member();
+            member.setName("memberA");
+            member.setTeam(team);
+            em.persist(member);
 
-            // 버퍼링 효과 사용 -> 한 번에 DB에 커밋
-            em.persist(member1);
-            em.persist(member2);
+            em.flush();
+            em.clear();
 
+            // 조회
 
-            System.out.println("==================");
+            Member findMember = em.find(Member.class, member.getId());
+            List<Member> members = findMember.getTeam().getMembers();
+
+            for (Member m : members) {
+                System.out.println("m.getName() = " + m.getName());
+            }
+
+            Team findTeam = em.find(Team.class, team.getId());
+            int size = findTeam.getMembers().size();
+            System.out.println("size = " + size);
 
             tx.commit();
         } catch (Exception e) {
