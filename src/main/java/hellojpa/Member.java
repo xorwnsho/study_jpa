@@ -12,10 +12,14 @@ public class Member {
     @Column(name = "USERNAME")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
+    public void useLocker(Locker locker) {
+        this.locker = locker;
+        locker.setMember(this);
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -24,19 +28,11 @@ public class Member {
         this.name = name;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
     public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Team getTeam() {
-        return team;
     }
 }
