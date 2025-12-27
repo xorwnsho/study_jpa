@@ -1,0 +1,1 @@
+[Notion 정리](https://valiant-albatross-759.notion.site/JPA-Java-Persistence-API-2a20bad1b72680a48433ce66f24de21c?source=copy_link)
